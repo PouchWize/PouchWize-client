@@ -9,14 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        // radial-gradient(circle at 15% 30%, rgba(130, 56, 255, 0.5) 0%, rgba(18, 18, 18, 0) 5%),
+        // radial-gradient(circle at 85% 40%, rgba(154, 89, 255, 0.3) 0%, rgba(18, 18, 18, 0) 10%),
+        'custom-gradient': `
+          radial-gradient(circle at 5% 80%, rgba(115, 72, 200, 0.4) 0%, rgba(18, 18, 18, 0) 20%),
+          radial-gradient(circle, rgba(44,15,98,1) 0%, rgba(18,18,18,1) 80%)
+        `,
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-  ],
+  plugins: [],
 };
 export default config;

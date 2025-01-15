@@ -2,17 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+/* @layer utilities {
+  .bg-custom-gradient {
+    background-image: radial-gradient(ellipse at center, rgba(44,15,98,1) 0%, rgba(18,18,18,1) 80%);
+  }
+} */
+
+html, body {
+  @apply bg-custom-gradient min-h-screen;
 }
