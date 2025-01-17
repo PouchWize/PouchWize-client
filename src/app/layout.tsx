@@ -8,6 +8,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "PouchWize",
   description: "A peer-to-peer decentralized lending platform",
+  icons: {
+    icon: "/Pouchwize Logo.png",
+  },
 };
 
 export default function RootLayout({
