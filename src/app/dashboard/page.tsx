@@ -5,17 +5,15 @@ import Header from "@/components/Header";
 import UserOverviewCard from '@/components/UserOverviewCard';
 import LoanTable from '@/components/LoanTable';
 import UserAvatar from '/public/Generic avatar.png';
-import Notification from '/public/Notifications none.png';
-import Plus from '/public/Plus.png';
 import { useAccount, useBalance } from '@starknet-react/core';
-import { useState } from 'react';
 import Modal from '@/components/ui/Modal';
-import CreateLoan from '@/components/CreateLoan';
+import { useState } from 'react';
+import Collateral from '@/components/Collateral';
 
 
 export default function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
@@ -35,7 +33,14 @@ export default function Dashboard() {
               <Image src={UserAvatar} alt="User-Friendly Interface" width={30} height={30} />
               <h2 className='text-1xl font-semi-bold text-white'>Welcome, User</h2>
             </div>
-            <Image src={Notification} alt="User-Friendly Interface" width={30} height={30} />
+            <div className='flex items-center gap-3'>
+              <button
+                onClick={openModal}
+                className="flex items-center gap-2 text-white"
+              >
+                <h3 className="text-1xl font-bold text-white hover:text-purple-700">Manage Collateral</h3>
+              </button>
+            </div>
           </div>
           <section className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
             <UserOverviewCard title="Total Collateral" value={
@@ -57,19 +62,12 @@ export default function Dashboard() {
           <section className="mt-10 bg-#B8B0B01A p-6 rounded-lg shadow-lg">
             <div className='flex justify-between items-center mb-5 mx-5 px-5'>
               <h3 className="text-xl font-bold text-white">Available Loans</h3>
-              <button
-                onClick={openModal}
-                className="flex items-center gap-2 text-white"
-              >
-                <Image src={Plus} alt="Create Loan" width={30} height={30} />
-                <h3 className="text-1xl font-bold">Create Loan</h3>
-              </button>
             </div>
             <LoanTable />
           </section>
 
           <Modal isOpen={isModalOpen} onClose={closeModal}>
-            <CreateLoan />
+              <Collateral />
           </Modal>
         </div>
     </main>
