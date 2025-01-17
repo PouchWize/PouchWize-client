@@ -9,6 +9,8 @@ import { useAccount, useBalance } from '@starknet-react/core';
 import Modal from '@/components/ui/Modal';
 import { useState } from 'react';
 import Collateral from '@/components/Collateral';
+import Link from 'next/link';
+import { Button } from '@/components/ui/Button';
 
 
 export default function Dashboard() {
@@ -64,6 +66,7 @@ export default function Dashboard() {
               <h3 className="text-xl font-bold text-white">Available Loans</h3>
             </div>
             <LoanTable />
+            <Link href={'/market-place'}><Button>Load more</Button></Link>
           </section>
 
           <Modal isOpen={isModalOpen} onClose={closeModal}>

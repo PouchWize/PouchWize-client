@@ -32,24 +32,24 @@ export default function Home() {
                 <div className="flex flex-col items-center gap-2 h-25 hover:bg-purple-700 p-5 rounded-lg">
                   <Image src={UserInterface} alt="User-Friendly Interface" width={50} height={50} />
                   <h3 className="text-xl font-bold text-gray-300">User-Friendly Interface</h3>
-                  <p className="text-gray-300">Easily navigate our platform with a simple design that makes borrowing and lending straightforward for everyone</p>
+                  <p className="text-gray-300 text-center">Easily navigate our platform with a simple design that makes borrowing and lending straightforward for everyone</p>
                 </div>
                 <div className="flex flex-col items-center gap-2 h-25 hover:bg-purple-700 p-5 rounded-lg">
                   <Image src={SecureTraction} alt="Secure Transactions" width={50} height={50} />
                   <h3 className="text-xl font-bold text-gray-300">Secure Transactions</h3>
-                  <p className="text-gray-300">Your funds are protected by smart contracts, ensuring that all agreements are safe and reliable. Borrowers deposit collateral, providing security for lenders in case of non-payment</p>
+                  <p className="text-gray-300 text-center">Your funds are protected by smart contracts, ensuring that all agreements are safe and reliable. Borrowers deposit collateral, providing security for lenders in case of non-payment</p>
                 </div>
               </div>
               <div className="grid grid-cols-1 gap-5">
                 <div className="flex flex-col items-center gap-2 h-25 hover:bg-purple-700 p-5 rounded-lg">
                   <Image src={EarnBonuses} alt="Earn Bonuses" width={50} height={50} />
                   <h3 className="text-xl font-bold text-gray-300">Earn Bonuses</h3>
-                  <p className="text-gray-300">Receive bonuses for executing successful liquidations. Your proactive efforts are rewarded, enhancing your overall earnings</p>
+                  <p className="text-gray-300 text-center">Receive bonuses for executing successful liquidations. Your proactive efforts are rewarded, enhancing your overall earnings</p>
                 </div>
                 <div className="flex flex-col items-center gap-2 h-25 hover:bg-purple-700 p-5 rounded-lg">
                   <Image src={LoanHealth} alt="Loan Health Checker" width={50} height={50} />
                   <h3 className="text-xl font-bold text-gray-300">Loan Health Checker</h3>
-                  <p className="text-gray-300">Use our Loan Health Checker to assess your financial situation. This tool helps you evaluate your borrowing capacity and manage your loans effectively</p>
+                  <p className="text-gray-300 text-center">Use our Loan Health Checker to assess your financial situation. This tool helps you evaluate your borrowing capacity and manage your loans effectively</p>
                 </div>
               </div>
             </div>
