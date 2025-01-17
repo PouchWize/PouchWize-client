@@ -26,7 +26,7 @@ export default function Home() {
         </div>
         <div className="py-10 px-5 mt-5 flex justify-between items-center">
           <div className="max-w-screen">
-            <h2 className="text-3xl font-bold text-white flex justify-center">Why Choose Pouchwise</h2>
+            <h2 className="text-3xl font-bold text-white flex justify-center">Why Choose Pouchwize</h2>
             <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div className="grid grid-cols-1 gap-5">
                 <div className="flex flex-col items-center gap-2 h-25 hover:bg-purple-700 p-5 rounded-lg">

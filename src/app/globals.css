@@ -3,12 +3,6 @@
 @tailwind utilities;
 
 
-/* @layer utilities {
-  .bg-custom-gradient {
-    background-image: radial-gradient(ellipse at center, rgba(44,15,98,1) 0%, rgba(18,18,18,1) 80%);
-  }
-} */
-
 html, body {
   @apply bg-custom-gradient min-h-screen;
 }
