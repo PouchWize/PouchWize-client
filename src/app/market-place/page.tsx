@@ -9,6 +9,7 @@ import Modal from '@/components/ui/Modal';
 import CreateLoan from '@/components/CreateLoan';
 import RequestLoan from '@/components/RequestLoan';
 import LoanTable from '@/components/LoanTable';
+import { Button } from '@/components/ui/Button';
 
 
 export default function Home() {
@@ -29,12 +30,12 @@ export default function Home() {
           </section>
 
           <div className="max-w-xl mt-10">
-            <button
+            <Button
               onClick={openModal}
               className="flex items-center gap-2 text-white"
             >
-              <h3 className="text-1xl font-bold mx-auto mb-10 px-3 py-1 rounded-md text-white bg-purple-700 hover:bg-purple-900">Post Loan Offer</h3>
-            </button>
+              <h3 className="text-1xl font-bold text-white bg-purple-700 hover:bg-purple-900">Post Loan Offer</h3>
+            </Button>
           </div>
 
           <Modal isOpen={isModalOpen} onClose={closeModal}>
