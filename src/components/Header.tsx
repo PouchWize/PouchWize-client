@@ -5,7 +5,7 @@ import Image from 'next/image';
 import WalletBar from "./WalletBar";
 import { usePathname } from "next/navigation";
 import React, { useRef, useState } from "react";
-import PouchWizeLogo from "/public/PouchWize Logo.png"
+import PouchWizeLogo from "/public/Pouchwize Logo.png"
 
 
 type HeaderMenuLink = {

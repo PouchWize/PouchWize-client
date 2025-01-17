@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import PouchWizeLogo from "/public/PouchWize Logo.png"
+import PouchWizeLogo from "/public/Pouchwize Logo.png"
 
 const Navbar = () => {
     return (
