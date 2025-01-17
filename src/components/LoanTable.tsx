@@ -1,7 +1,26 @@
 import React from "react";
 
 const LoanTable = () => {
-    const loans = [] as any[];
+    const loans = [
+      {
+        asset: "BTC",
+        interest: "5%",
+        collateral: "0.05 BTC",
+        duration: "30 days",
+        start: "10/01/2025",
+        end: "10/02/2025",
+        status: "Active",
+      },
+      {
+        asset: "BTC",
+        interest: "2%",
+        collateral: "0.1 BTC",
+        duration: "90 days",
+        start: "1/01/2025",
+        end: "1/04/2025",
+        status: "Active",
+      }
+    ] as any[];
 
   return (
     <div className="p-6 text-white">

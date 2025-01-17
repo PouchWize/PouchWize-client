@@ -5,6 +5,7 @@ import Image from 'next/image';
 import WalletBar from "./WalletBar";
 import { usePathname } from "next/navigation";
 import React, { useRef, useState } from "react";
+import PouchWizeLogo from "/public/PouchWize Logo.png"
 
 
 type HeaderMenuLink = {
@@ -62,7 +63,10 @@ const Header = () => {
         <nav>
             <div className="max-w-screen px-2 h-16 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center mt-2 pt-2">
-                        <h1 className="text-2xl font-bold text-purple-700">PouchWize</h1>
+                        <div className="flex items-center gap-2">
+                          <Image src={PouchWizeLogo} alt="PouchWize Logo" width={50} height={50} />
+                          <h1 className="text-2xl font-bold text-purple-700">PouchWize</h1>
+                        </div>
                         <ul
                             tabIndex={0}
                             className="flex items-center flex-shrink-0 rounded-md"
