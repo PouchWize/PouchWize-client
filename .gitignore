@@ -45,3 +45,5 @@ package-lock.json
 
 # Include template
 !.env.template
+
+yarn.lock
