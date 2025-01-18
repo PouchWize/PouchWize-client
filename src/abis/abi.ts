@@ -1,4 +1,6 @@
-export const ABI = [
+import type { Abi } from "starknet";
+
+export const POUCHWIZE_ABI = [
     {
         name: "TokenManagement",
         type: "impl",
@@ -590,4 +592,4 @@ export const ABI = [
             },
         ],
     },
-] as const;
+] as const satisfies Abi;
