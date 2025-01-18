@@ -69,7 +69,7 @@ const Header = () => {
               width={50}
               height={50}
             />
-            <h1 className="text-2xl font-bold text-purple-700">PouchWize</h1>
+            <h1 className="hidden sm:block text-2xl font-bold text-purple-700">PouchWize</h1>
           </Link>
 
           {/* Hamburger menu icon for small screens */}

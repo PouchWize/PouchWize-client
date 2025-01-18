@@ -11,7 +11,7 @@ const Navbar = () => {
                 <div className="flex justify-between items-center mt-2 pt-2">
                     <Link href={'/'} className="flex items-center gap-2">
                         <Image src={PouchWizeLogo} alt="PouchWize Logo" width={50} height={50} />
-                        <h1 className="text-2xl font-bold text-purple-700">PouchWize</h1>
+                        <h1 className="hidden sm:block text-2xl font-bold text-purple-700">PouchWize</h1>
                     </Link>
                     <div className="flex items-center gap-5">
                         <Link href={'https://pouchwize.gitbook.io/pouchwize-docs'}>

@@ -29,7 +29,7 @@ export default function Home() {
             <LoanTable />
           </section>
 
-          <div className="max-w-xl mt-10">
+          <div className="max-w-xl mt-10 mb-10">
             <Button
               onClick={openModal}
               className="flex items-center gap-2 text-white"
