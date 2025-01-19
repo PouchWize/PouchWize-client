@@ -205,3 +205,4 @@ const LoanTable = () => {
 };
 
 export default LoanTable;
+
