@@ -1,13 +1,9 @@
 'use client';
 
-import Image from 'next/image';
-import heroImage from "/public/hero-image.png";
 import Header from "@/components/Header";
 import { useState } from 'react';
-import Plus from '/public/Plus.png';
 import Modal from '@/components/ui/Modal';
 import CreateLoan from '@/components/CreateLoan';
-import RequestLoan from '@/components/RequestLoan';
 import LoanTable from '@/components/LoanTable';
 import { Button } from '@/components/ui/Button';
 
@@ -22,8 +18,8 @@ export default function Home() {
     <main className="max-w-screen px-4 mx-auto sm:px-6 lg:px-8">
         <Header />
         <div>
-          <section className="mt-10 bg-#B8B0B01A p-6 rounded-lg shadow-lg">
-            <div className='flex justify-between items-center mb-5 mx-5 px-5'>
+          <section className="mt-10 bg-gray-800 bg-opacity-10 p-6 rounded-lg shadow-lg">
+            <div className="flex justify-between items-center mb-5 mx-5 px-5">
               <h3 className="text-xl font-bold text-white">Available Loans</h3>
             </div>
             <LoanTable />

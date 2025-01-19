@@ -1,34 +1,11 @@
-import React, { useState } from "react";
-import Modal from "./ui/Modal";
-import RequestLoan from "./RequestLoan";
+'use client'
+
+import React from "react";
+import Link from "next/link";
+import { loans } from './loanMockData';
 
 
 const LoanTable = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  const loans = [
-    {
-      asset: "BTC",
-      interest: "5%",
-      collateral: "0.05 BTC",
-      duration: "30 days",
-      start: "10/01/2025",
-      end: "10/02/2025",
-      status: "Active",
-    },
-    {
-      asset: "BTC",
-      interest: "2%",
-      collateral: "0.1 BTC",
-      duration: "90 days",
-      start: "1/01/2025",
-      end: "1/04/2025",
-      status: "Active",
-    },
-  ] as any[];
 
   return (
     <div className="p-6 text-white">
@@ -43,7 +20,7 @@ const LoanTable = () => {
               <th>Start Day</th>
               <th>End Day</th>
               <th>Loan Status</th>
-              <th>Request Loan</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -54,8 +31,8 @@ const LoanTable = () => {
                 </td>
               </tr>
             ) : (
-              loans.map((loan, index) => (
-                <tr key={index} className="border-t border-gray-700">
+              loans.map((loan) => (
+                <tr key={loan.id} className="border-t border-gray-700">
                   <td className="py-2">{loan.asset}</td>
                   <td>{loan.interest}</td>
                   <td>{loan.collateral}</td>
@@ -64,14 +41,11 @@ const LoanTable = () => {
                   <td>{loan.end}</td>
                   <td className="text-green-400">{loan.status}</td>
                   <td>
-                    <button
-                      onClick={openModal}
-                      className="flex items-center gap-2 text-white"
-                    >
-                      <h3 className="text-purple-700 m-1 px-2 py-1 rounded-md bg-white hover:text-purple-900">
-                        Request
-                      </h3>
-                    </button>
+                  <Link href={`/loan/${loan.id}`} as={`/loan/${loan.id}`}>
+                      <button className="bg-white text-purple-700 hover:text-purple-900 px-4 py-2 rounded-md">
+                        View
+                      </button>
+                    </Link>
                   </td>
                 </tr>
               ))
@@ -79,63 +53,57 @@ const LoanTable = () => {
           </tbody>
         </table>
 
-        {/* Responsive Table for Small Screens */}
+        {/* Mobile Cards */}
         <div className="sm:hidden">
           {loans.length === 0 ? (
             <p className="text-center text-gray-500">No available loans currently</p>
           ) : (
-            loans.map((loan, index) => (
+            loans.map((loan) => (
               <div
-                key={index}
+                key={loan.id}
                 className="bg-gray-800 p-4 mb-4 rounded-md shadow-md"
               >
-                <div className="text-gray-400 mb-2">
-                  <div className="font-semibold">Asset:</div>
-                  <div>{loan.asset}</div>
+                <div className="mb-2">
+                  <span className="font-semibold text-gray-400">Asset:</span>{' '}
+                  {loan.asset}
                 </div>
-                <div className="text-gray-400 mb-2">
-                  <div className="font-semibold">Interest:</div>
-                  <div>{loan.interest}</div>
+                <div className="mb-2">
+                  <span className="font-semibold text-gray-400">Interest:</span>{' '}
+                  {loan.interest}
                 </div>
-                <div className="text-gray-400 mb-2">
-                  <div className="font-semibold">Collateral:</div>
-                  <div>{loan.collateral}</div>
+                <div className="mb-2">
+                  <span className="font-semibold text-gray-400">Collateral:</span>{' '}
+                  {loan.collateral}
                 </div>
-                <div className="text-gray-400 mb-2">
-                  <div className="font-semibold">Duration:</div>
-                  <div>{loan.duration}</div>
+                <div className="mb-2">
+                  <span className="font-semibold text-gray-400">Duration:</span>{' '}
+                  {loan.duration}
                 </div>
-                <div className="text-gray-400 mb-2">
-                  <div className="font-semibold">Start Day:</div>
-                  <div>{loan.start}</div>
+                <div className="mb-2">
+                  <span className="font-semibold text-gray-400">Start Day:</span>{' '}
+                  {loan.start}
                 </div>
-                <div className="text-gray-400 mb-2">
-                  <div className="font-semibold">End Day:</div>
-                  <div>{loan.end}</div>
+                <div className="mb-2">
+                  <span className="font-semibold text-gray-400">End Day:</span>{' '}
+                  {loan.end}
                 </div>
-                <div className="text-gray-400 mb-4">
-                  <div className="font-semibold">Loan Status:</div>
-                  <div className="text-green-400">{loan.status}</div>
+                <div className="mb-4">
+                  <span className="font-semibold text-gray-400">Loan Status:</span>{' '}
+                  <span className="text-green-400">{loan.status}</span>
                 </div>
-                <div className="flex justify-between">
-                  <button
-                    onClick={openModal}
-                    className="text-purple-700 bg-white py-1 px-3 rounded-md hover:bg-gray-100"
-                  >
-                    Request Loan
+                <Link href={`/loan/${loan.id}`}>
+                  <button className="bg-white text-purple-700 hover:text-purple-900 px-4 py-2 rounded-md">
+                    View
                   </button>
-                </div>
+                </Link>
               </div>
             ))
           )}
         </div>
       </div>
-
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <RequestLoan />
-      </Modal>
     </div>
   );
 };
 
 export default LoanTable;
+
