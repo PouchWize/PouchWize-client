@@ -1,6 +1,7 @@
 'use client';
 
 import { loans } from '@/components/loanMockData';
+import RepayLoan from '@/components/RepayLoan';
 import RequestLoan from '@/components/RequestLoan';
 import Modal from '@/components/ui/Modal';
 import Link from 'next/link';
@@ -25,10 +26,14 @@ interface Loan {
 }
 
 export default function LoanDetailsPage({ params }: PageProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
+  const [isRepayModalOpen, setIsRepayModalOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openRequestModal = () => setIsRequestModalOpen(true);
+  const closeRequestModal = () => setIsRequestModalOpen(false);
+  
+  const openRepayModal = () => setIsRepayModalOpen(true);
+  const closeRepayModal = () => setIsRepayModalOpen(false);
 
   const loan = loans.find((loan) => loan.id === params.id);
 
@@ -70,19 +75,32 @@ export default function LoanDetailsPage({ params }: PageProps) {
           <span className="text-green-400">{loan.status}</span>
         </p>
       </div>
-      <div className='mt-10'>
+      <div className='mt-10 flex justify-between items-center'>
         <button
-          onClick={openModal}
+          onClick={openRequestModal}
           className="flex items-center gap-2 text-white"
         >
           <h3 className="text-purple-700 m-1 px-2 py-1 rounded-md bg-white hover:text-purple-900">
             Request
           </h3>
         </button>
+
+        <button
+          onClick={openRepayModal}
+          className="flex items-center gap-2 text-white"
+        >
+          <h3 className="text-purple-700 m-1 px-2 py-1 rounded-md bg-white hover:text-purple-900">
+            Repay
+          </h3>
+        </button>
       </div>
       
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
+      <Modal isOpen={isRequestModalOpen} onClose={closeRequestModal}>
         <RequestLoan />
+      </Modal>
+
+      <Modal isOpen={isRepayModalOpen} onClose={closeRepayModal}>
+        <RepayLoan />
       </Modal>
     </div>
   );
