@@ -6,7 +6,11 @@ import RequestLoan from '@/components/RequestLoan';
 import Modal from '@/components/ui/Modal';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useProvider } from "@starknet-react/core";
+import { Contract } from "starknet";
+import { POUCHWIZE_ABI } from "@/abis/abi";
+
 
 interface PageProps {
   params: {
@@ -28,12 +32,52 @@ interface Loan {
 export default function LoanDetailsPage({ params }: PageProps) {
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
   const [isRepayModalOpen, setIsRepayModalOpen] = useState(false);
+  const [noOfLoanListings, setNoOfLoanListings] = useState<null | BigInt>(
+    null
+);
 
   const openRequestModal = () => setIsRequestModalOpen(true);
   const closeRequestModal = () => setIsRequestModalOpen(false);
   
   const openRepayModal = () => setIsRepayModalOpen(true);
   const closeRepayModal = () => setIsRepayModalOpen(false);
+
+  const { provider } = useProvider();
+
+    const pouchWizeContract = new Contract(
+        POUCHWIZE_ABI,
+        process.env.NEXT_PUBLIC_POUCHWIZE_CONTRACT as `0x${string}`,
+        provider
+    );
+
+    useEffect(() => {
+        async function getLoanListings() {
+            const res = await pouchWizeContract.get_total_listings();
+            setNoOfLoanListings(res);
+        }
+
+        getLoanListings();
+    }, []);
+
+    useEffect(() => {
+        const fetchLoanListings = async () => {
+            if (noOfLoanListings != null) {
+                console.log(noOfLoanListings);
+                try {
+                    for (let i = 0; i < Number(noOfLoanListings); i++) {
+                        const res = await pouchWizeContract.get_loan_details(
+                            BigInt(i)
+                        );
+                        console.log(res);
+                    }
+                } catch (error) {
+                    console.error("Error fetching loan listings:", error);
+                }
+            }
+        };
+
+        fetchLoanListings();
+    }, [noOfLoanListings]);
 
   const loan = loans.find((loan) => loan.id === params.id);
 

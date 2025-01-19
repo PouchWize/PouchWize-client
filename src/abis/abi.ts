@@ -2,42 +2,7 @@ import type { Abi } from "starknet";
 
 export const POUCHWIZE_ABI = [
     {
-        name: "TokenManagement",
-        type: "impl",
-        interface_name: "pouchwize::ITokenManagement",
-    },
-    {
-        name: "pouchwize::ITokenManagement",
-        type: "interface",
-        items: [
-            {
-                name: "add_lending_token",
-                type: "function",
-                inputs: [
-                    {
-                        name: "token",
-                        type: "core::starknet::contract_address::ContractAddress",
-                    },
-                ],
-                outputs: [],
-                state_mutability: "external",
-            },
-            {
-                name: "add_collateral_token",
-                type: "function",
-                inputs: [
-                    {
-                        name: "token",
-                        type: "core::starknet::contract_address::ContractAddress",
-                    },
-                ],
-                outputs: [],
-                state_mutability: "external",
-            },
-        ],
-    },
-    {
-        name: "LendingImpl",
+        name: "Pouchwize",
         type: "impl",
         interface_name: "pouchwize::IPouchwize",
     },
@@ -70,11 +35,11 @@ export const POUCHWIZE_ABI = [
         ],
     },
     {
-        name: "pouchwize::Pouchwize::Loan",
+        name: "pouchwize::Pouchwize::LoanListing",
         type: "struct",
         members: [
             {
-                name: "borrower",
+                name: "author",
                 type: "core::starknet::contract_address::ContractAddress",
             },
             {
@@ -82,20 +47,38 @@ export const POUCHWIZE_ABI = [
                 type: "core::integer::u256",
             },
             {
-                name: "collateral",
-                type: "core::starknet::contract_address::ContractAddress",
+                name: "min_amount",
+                type: "core::integer::u256",
             },
             {
-                name: "active",
-                type: "core::bool",
+                name: "max_amount",
+                type: "core::integer::u256",
             },
             {
-                name: "timestamp",
+                name: "interest",
+                type: "core::integer::u16",
+            },
+            {
+                name: "return_date",
                 type: "core::integer::u64",
             },
             {
-                name: "listing_id",
-                type: "core::integer::u128",
+                name: "token_address",
+                type: "core::starknet::contract_address::ContractAddress",
+            },
+            {
+                name: "status",
+                type: "core::integer::u8",
+            },
+        ],
+    },
+    {
+        name: "core::array::Span::<core::integer::u128>",
+        type: "struct",
+        members: [
+            {
+                name: "snapshot",
+                type: "@core::array::Array::<core::integer::u128>",
             },
         ],
     },
@@ -136,20 +119,16 @@ export const POUCHWIZE_ABI = [
                 state_mutability: "external",
             },
             {
-                name: "create_loan",
+                name: "request_loan_from_listing",
                 type: "function",
                 inputs: [
                     {
-                        name: "amount",
-                        type: "core::integer::u256",
-                    },
-                    {
-                        name: "collateral",
-                        type: "core::starknet::contract_address::ContractAddress",
-                    },
-                    {
                         name: "listing_id",
                         type: "core::integer::u128",
+                    },
+                    {
+                        name: "amount",
+                        type: "core::integer::u256",
                     },
                 ],
                 outputs: [
@@ -180,6 +159,70 @@ export const POUCHWIZE_ABI = [
                 state_mutability: "external",
             },
             {
+                name: "create_loan_listing",
+                type: "function",
+                inputs: [
+                    {
+                        name: "amount",
+                        type: "core::integer::u256",
+                    },
+                    {
+                        name: "min_amount",
+                        type: "core::integer::u256",
+                    },
+                    {
+                        name: "max_amount",
+                        type: "core::integer::u256",
+                    },
+                    {
+                        name: "interest",
+                        type: "core::integer::u16",
+                    },
+                    {
+                        name: "token",
+                        type: "core::starknet::contract_address::ContractAddress",
+                    },
+                ],
+                outputs: [
+                    {
+                        type: "core::integer::u128",
+                    },
+                ],
+                state_mutability: "external",
+            },
+            {
+                name: "cancel_loan_listing",
+                type: "function",
+                inputs: [
+                    {
+                        name: "listing_id",
+                        type: "core::integer::u128",
+                    },
+                ],
+                outputs: [
+                    {
+                        type: "core::bool",
+                    },
+                ],
+                state_mutability: "external",
+            },
+            {
+                name: "cancel_loan_request_loan_from_listing",
+                type: "function",
+                inputs: [
+                    {
+                        name: "loan_id",
+                        type: "core::integer::u128",
+                    },
+                ],
+                outputs: [
+                    {
+                        type: "core::bool",
+                    },
+                ],
+                state_mutability: "external",
+            },
+            {
                 name: "liquidate",
                 type: "function",
                 inputs: [
@@ -196,7 +239,39 @@ export const POUCHWIZE_ABI = [
                 state_mutability: "external",
             },
             {
-                name: "get_loan",
+                name: "check_and_liquidate_loans",
+                type: "function",
+                inputs: [
+                    {
+                        name: "loan_ids",
+                        type: "core::array::Array::<core::integer::u128>",
+                    },
+                ],
+                outputs: [
+                    {
+                        type: "core::array::Array::<core::bool>",
+                    },
+                ],
+                state_mutability: "external",
+            },
+            {
+                name: "get_loan_listing",
+                type: "function",
+                inputs: [
+                    {
+                        name: "listing_id",
+                        type: "core::integer::u128",
+                    },
+                ],
+                outputs: [
+                    {
+                        type: "pouchwize::Pouchwize::LoanListing",
+                    },
+                ],
+                state_mutability: "view",
+            },
+            {
+                name: "get_loan_details",
                 type: "function",
                 inputs: [
                     {
@@ -206,7 +281,123 @@ export const POUCHWIZE_ABI = [
                 ],
                 outputs: [
                     {
-                        type: "pouchwize::Pouchwize::Loan",
+                        type: "(core::integer::u256, core::integer::u256, core::integer::u256, core::integer::u64)",
+                    },
+                ],
+                state_mutability: "view",
+            },
+            {
+                name: "get_loan_health",
+                type: "function",
+                inputs: [
+                    {
+                        name: "loan_id",
+                        type: "core::integer::u128",
+                    },
+                ],
+                outputs: [
+                    {
+                        type: "core::bool",
+                    },
+                ],
+                state_mutability: "view",
+            },
+            {
+                name: "get_loan_health_ratio",
+                type: "function",
+                inputs: [
+                    {
+                        name: "loan_id",
+                        type: "core::integer::u128",
+                    },
+                ],
+                outputs: [
+                    {
+                        type: "core::integer::u16",
+                    },
+                ],
+                state_mutability: "view",
+            },
+            {
+                name: "get_interest_accrued",
+                type: "function",
+                inputs: [
+                    {
+                        name: "loan_id",
+                        type: "core::integer::u128",
+                    },
+                ],
+                outputs: [
+                    {
+                        type: "core::integer::u256",
+                    },
+                ],
+                state_mutability: "view",
+            },
+            {
+                name: "get_user_loan_listings",
+                type: "function",
+                inputs: [
+                    {
+                        name: "user",
+                        type: "core::starknet::contract_address::ContractAddress",
+                    },
+                ],
+                outputs: [
+                    {
+                        type: "core::array::Span::<core::integer::u128>",
+                    },
+                ],
+                state_mutability: "view",
+            },
+            {
+                name: "get_user_active_loans",
+                type: "function",
+                inputs: [
+                    {
+                        name: "user",
+                        type: "core::starknet::contract_address::ContractAddress",
+                    },
+                ],
+                outputs: [
+                    {
+                        type: "core::array::Span::<core::integer::u128>",
+                    },
+                ],
+                state_mutability: "view",
+            },
+            {
+                name: "get_user_health_status",
+                type: "function",
+                inputs: [
+                    {
+                        name: "user",
+                        type: "core::starknet::contract_address::ContractAddress",
+                    },
+                ],
+                outputs: [
+                    {
+                        type: "core::integer::u8",
+                    },
+                ],
+                state_mutability: "view",
+            },
+            {
+                name: "get_borrowing_capacity",
+                type: "function",
+                inputs: [
+                    {
+                        name: "user",
+                        type: "core::starknet::contract_address::ContractAddress",
+                    },
+                    {
+                        name: "token",
+                        type: "core::starknet::contract_address::ContractAddress",
+                    },
+                ],
+                outputs: [
+                    {
+                        type: "core::integer::u256",
                     },
                 ],
                 state_mutability: "view",
@@ -252,75 +443,83 @@ export const POUCHWIZE_ABI = [
                 state_mutability: "view",
             },
             {
-                name: "create_loan_listing",
+                name: "get_total_collateral_value",
                 type: "function",
                 inputs: [
                     {
-                        name: "amount",
-                        type: "core::integer::u256",
-                    },
-                    {
-                        name: "min_amount",
-                        type: "core::integer::u256",
-                    },
-                    {
-                        name: "max_amount",
-                        type: "core::integer::u256",
-                    },
-                    {
-                        name: "interest",
-                        type: "core::integer::u16",
-                    },
-                    {
-                        name: "token",
+                        name: "user",
                         type: "core::starknet::contract_address::ContractAddress",
                     },
                 ],
                 outputs: [
                     {
+                        type: "core::integer::u256",
+                    },
+                ],
+                state_mutability: "view",
+            },
+            {
+                name: "get_total_loans",
+                type: "function",
+                inputs: [],
+                outputs: [
+                    {
                         type: "core::integer::u128",
                     },
                 ],
-                state_mutability: "external",
+                state_mutability: "view",
             },
             {
-                name: "check_and_liquidate_loans",
+                name: "get_total_listings",
                 type: "function",
-                inputs: [
-                    {
-                        name: "loan_ids",
-                        type: "core::array::Array::<core::integer::u128>",
-                    },
-                ],
+                inputs: [],
                 outputs: [
                     {
-                        type: "core::array::Array::<core::bool>",
+                        type: "core::integer::u128",
                     },
                 ],
-                state_mutability: "external",
+                state_mutability: "view",
             },
             {
-                name: "request_loan_from_listing",
+                name: "get_available_listings",
+                type: "function",
+                inputs: [],
+                outputs: [
+                    {
+                        type: "core::array::Span::<core::integer::u128>",
+                    },
+                ],
+                state_mutability: "view",
+            },
+            {
+                name: "get_listing_utilization",
                 type: "function",
                 inputs: [
                     {
                         name: "listing_id",
                         type: "core::integer::u128",
                     },
-                    {
-                        name: "amount",
-                        type: "core::integer::u256",
-                    },
                 ],
                 outputs: [
                     {
-                        type: "core::integer::u128",
+                        type: "core::integer::u256",
                     },
                 ],
-                state_mutability: "external",
+                state_mutability: "view",
             },
             {
-                name: "cancel_loan",
+                name: "get_liquidatable_loans",
+                type: "function",
+                inputs: [],
+                outputs: [
+                    {
+                        type: "core::array::Span::<core::integer::u128>",
+                    },
+                ],
+                state_mutability: "view",
+            },
+            {
+                name: "get_liquidation_bonus",
                 type: "function",
                 inputs: [
                     {
@@ -330,9 +529,25 @@ export const POUCHWIZE_ABI = [
                 ],
                 outputs: [
                     {
-                        type: "core::bool",
+                        type: "core::integer::u256",
                     },
                 ],
+                state_mutability: "view",
+            },
+            {
+                name: "distribute_test_tokens",
+                type: "function",
+                inputs: [
+                    {
+                        name: "recipient",
+                        type: "core::starknet::contract_address::ContractAddress",
+                    },
+                    {
+                        name: "amount",
+                        type: "core::integer::u256",
+                    },
+                ],
+                outputs: [],
                 state_mutability: "external",
             },
         ],
@@ -519,28 +734,6 @@ export const POUCHWIZE_ABI = [
         ],
     },
     {
-        kind: "struct",
-        name: "pouchwize::Pouchwize::InterestAccrued",
-        type: "event",
-        members: [
-            {
-                kind: "data",
-                name: "loan_id",
-                type: "core::integer::u128",
-            },
-            {
-                kind: "data",
-                name: "amount",
-                type: "core::integer::u256",
-            },
-            {
-                kind: "data",
-                name: "timestamp",
-                type: "core::integer::u64",
-            },
-        ],
-    },
-    {
         kind: "enum",
         name: "pouchwize::Pouchwize::Event",
         type: "event",
@@ -584,11 +777,6 @@ export const POUCHWIZE_ABI = [
                 kind: "nested",
                 name: "LoanHealthCompromised",
                 type: "pouchwize::Pouchwize::LoanHealthCompromised",
-            },
-            {
-                kind: "nested",
-                name: "InterestAccrued",
-                type: "pouchwize::Pouchwize::InterestAccrued",
             },
         ],
     },
