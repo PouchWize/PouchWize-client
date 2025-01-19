@@ -5,9 +5,9 @@ import React, { ChangeEvent } from "react";
 interface InputFieldProps {
     label: string;
     type: string;
-    name: string;
-    value: string;
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    name?: string;
+    value?: string;
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     placeholder?: string;
     error?: string;
 }
