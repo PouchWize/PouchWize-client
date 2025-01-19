@@ -36,7 +36,7 @@ export default function Home() {
                         className="flex items-center gap-2 text-white"
                     >
                         <h3 className="text-1xl font-bold text-white bg-purple-700 hover:bg-purple-900">
-                            Create Loan Listing
+                            Post Loan Offer
                         </h3>
                     </Button>
                 </div>
