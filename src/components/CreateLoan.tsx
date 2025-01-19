@@ -127,9 +127,9 @@ const CreateLoan: React.FC<CreateLoanProps> = ({ onSuccess }) => {
         };
         console.log("Form submitted with values:", submissionData);
 
-        const loanListingAmount = BigInt(submissionData.amount);
-        const minLoanAmount = BigInt(submissionData.min_amount);
-        const maxLoanAmount = BigInt(submissionData.max_amount);
+        const loanListingAmount = BigInt(submissionData.amount) * BigInt(1e18);
+        const minLoanAmount = BigInt(submissionData.min_amount) * BigInt(1e18);
+        const maxLoanAmount = BigInt(submissionData.max_amount) * BigInt(1e18);
         const loanInterestRate = BigInt(submissionData.interest);
         const loanToken = submissionData.tokenAddress as `0x${string}`;
 
@@ -150,16 +150,14 @@ const CreateLoan: React.FC<CreateLoanProps> = ({ onSuccess }) => {
         );
 
         console.log(populatedTX);
-        // const res = await
-        // console.log(res);
 
-        // setFormData({
-        //     amount: "",
-        //     max_amount: "",
-        //     min_amount: "",
-        //     interest: "",
-        //     token: "",
-        // });
+        setFormData({
+            amount: "",
+            max_amount: "",
+            min_amount: "",
+            interest: "",
+            token: "",
+        });
 
         // onSuccess?.();
     };
